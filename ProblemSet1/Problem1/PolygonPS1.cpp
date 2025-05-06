@@ -1,6 +1,6 @@
 #include<iostream>
 #include "Polygon.h"
-#include "Vector2D.h"
+#include <math.h>
 float Polygon::getSignedArea(){
     float area = 0.0f;
 
@@ -8,8 +8,9 @@ float Polygon::getSignedArea(){
     if ( fNumberOfVertices > 2 )
     {
         for (int i = 0;i<fNumberOfVertices-1;i++){
-            area += ((fVertices[i].getX() * fVertices[i+1].getY()) - (fVertices[i+1].getX() * fVertices[i].getY()));
+            area += abs(fVertices[i].cross(fVertices[i+1]));
         }
+        area+= abs(fVertices[fNumberOfVertices-1].cross(fVertices[0]));
         area /= 2;
     }else{
         return 0.0f;
